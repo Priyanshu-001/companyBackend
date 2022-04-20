@@ -15,44 +15,30 @@ const employeeSchema = Schema({
 	passwordHash:String,
 	salt:String,
 	currentlyEmployed:Boolean,
-	companies:[
-		{	joiningDate:{
-				type:Number,
-				default:()=>Date.now()
+	companies:[{
+				dateJoined:{
+					type:Number,
+					default:()=>Date.now()
+				},
+				dateLeft:Number,
+				company:{
+					type:Schema.Types.ObjectId,
+					ref:'Company',
 			},
-			ref:{
-				type:Schema.Types.ObjectId,
-				ref:'Company',
-			},
-			exitDate:{
-				type:Number,
-				default:()=>Date.now()
-			},
-
-		},
-
-
+		}
 	],
 })
 
 const companySchema = Schema({
 	name:String,
 	employees:[
-	{	joiningDate:{
-				type:Number,
-				default:()=>Date.now()
-			},
-			ref:{
+		
+		{
 				type:Schema.Types.ObjectId,
 				ref:'Employee',
-			},
-			exitDate:{
-				type:Number,
-				default:()=>Date.now()
-			},
-		},
+		}
 	],
-	founder:String,
+	founder:Schema.Types.ObjectId,
 	description:String,
 	foundingDate:{
 		type:Number,
